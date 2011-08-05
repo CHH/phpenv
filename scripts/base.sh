@@ -1,0 +1,7 @@
+#!/bin/bash
+
+SCRIPTS_DIR="$PHPENV_ROOT/bin"
+PACKAGE_DIR="$PHPENV_ROOT/packages"
+SOURCE_DIR="$PHPENV_ROOT/source"
+TARGET_DIR="$PHPENV_ROOT/versions"
+TEMP_DIR="$PHPENV_ROOT/tmp"

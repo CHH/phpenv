@@ -2,7 +2,7 @@
 
 echo Installing Pyrus
 
-wget -P "$OUTPUT_DIR/bin" http://pear2.php.net/pyrus.phar 
+wget -qP "$OUTPUT_DIR/bin" http://pear2.php.net/pyrus.phar 
 mkdir "$OUTPUT_DIR/pear"
 
 echo "include_path=.:$OUTPUT_DIR/pear/php" > "$OUTPUT_DIR/etc/conf.d/pear.ini"

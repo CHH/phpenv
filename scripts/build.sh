@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/base.sh"
+source "$PHPENV_SCRIPTS_DIR/base.sh"
 
 # Exit if the package argument is missing
 if [ -z $1 ]; then
@@ -32,10 +32,11 @@ if [ ! -d "$SOURCE_DIR/$package" ]; then
     mkdir "$SOURCE_DIR/$package"
     tar -xj --strip-components 1 -f $package_file -C "$SOURCE_DIR/$package"
     echo "Done."
+    echo
 fi
 
 echo "Preparing Build Process..."
-source "$PHPENV_ROOT/bin/configure.sh"
+source "$PHPENV_SCRIPTS_DIR/configure.sh"
 
 echo "Compiling. This will take a while, so go get some coffee."
 cd "$SOURCE_DIR/$package"
@@ -57,11 +58,12 @@ select ini_file in $ini_options; do
         echo "Using $ini_file"
         cp "$SOURCE_DIR/$package/$ini_file" "$OUTPUT_DIR/etc/php.ini"
     fi
+    break
 done
 
 echo
 echo "Installing Extras"
-source "$PHPENV_ROOT/bin/extras/pyrus.sh"
+source "$PHPENV_SCRIPTS_DIR/build_extras/pyrus.sh"
 
 echo "Finished."
 exit 0

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -f "$PHPENV_SCRIPTS_DIR/$1.sh" ]; then
+    echo "Command $1 not found."
+    exit 1
+fi
+
+command=$1
+shift
+
+"$PHPENV_SCRIPTS_DIR/$command.sh" $@

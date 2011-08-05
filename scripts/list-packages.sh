@@ -1,4 +1,5 @@
 #!/bin/bash
-source "$(dirname $0)/base.sh"
+
+source "$PHPENV_SCRIPTS_DIR/base.sh"
 
 ls $PACKAGE_DIR | sed s/\.tar\.bz2//

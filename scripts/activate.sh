@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/base.sh"
+source "$PHPENV_SCRIPTS_DIR/base.sh"
 
 function display_usage {
     echo "Usage: $0 [package]"
