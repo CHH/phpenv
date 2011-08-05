@@ -1,13 +1,22 @@
 #!/bin/bash
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
-
-function display_usage {
-    echo "Usage: $0 [package]"
+function usage {
+    echo "Sets the given version as default executable for this user"
+    echo
+    echo "Usage: $(basename $0) [package]"
+    echo
+    echo "Arguments:"
+    echo "  package: Name of a built package"
+    echo
+    echo "These Packages are currently available:"
+    $PHPENV_SCRIPTS_DIR/list-versions.sh
+    echo
 }
 
+source "$PHPENV_SCRIPTS_DIR/base.sh"
+
 if [ -z $1 ]; then
-    display_usage
+    usage
     exit
 fi
 
@@ -16,11 +25,7 @@ package=$1
 if [ ! -d "$TARGET_DIR/$package" ]; then
     echo "Package $package not found in $TARGET_DIR"
     echo
-    echo "These Versions are available:"
-
-    $SCRIPTS_DIR/list-versions.sh
-    echo
-    echo "Call \"build.sh $package\" to make it available."
+    usage
     exit -1
 fi
 
@@ -32,7 +37,7 @@ echo "Activating $package"
 ln -s "$TARGET_DIR/$package" "$TARGET_DIR/local"
 
 if [ 0 -ne $? ]; then
-    echo "[FAILURE]: Linking $TARGET_DIR/$package to $TARGET_DIR/local"
+    phpenv_fail "Linking $TARGET_DIR/$package to $TARGET_DIR/local"
     exit -1
 fi
 

@@ -2,11 +2,15 @@
 
 cd "$SOURCE_DIR/$package"
 
-mkdir "$OUTPUT_DIR/etc"
-mkdir "$OUTPUT_DIR/etc/conf.d"
+if [ ! -d "$OUTPUT_DIR/etc" ]; then
+    mkdir "$OUTPUT_DIR/etc"
+fi
 
-./configure \
---without-pear \
+if [ ! -d "$OUTPUT_DIR/etc/conf.d" ]; then
+    mkdir "$OUTPUT_DIR/etc/conf.d"
+fi
+
+options="--without-pear \
 --with-gd \
 --with-jpeg-dir=/usr \
 --with-png-dir=/usr \
@@ -40,5 +44,15 @@ mkdir "$OUTPUT_DIR/etc/conf.d"
 --enable-shmop \
 --with-readline \
 --with-mysqli=/usr/bin/mysql_config \
---prefix=$OUTPUT_DIR \
---with-libdir=lib64
+--prefix=$OUTPUT_DIR"
+
+if [ -d "/usr/lib64" ]; then
+    options="$options --with-libdir=lib64"
+fi
+
+./configure $options
+
+if [ 0 -ne $? ]; then
+    phpenv_fail "Error while preparing Build."
+    exit 1
+fi

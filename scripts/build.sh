@@ -1,10 +1,30 @@
 #!/bin/bash
 
+function usage {
+    echo "Build a specific version of PHP"
+    echo
+    echo "Usage: $(basename $0) [package]"
+    echo 
+    echo "Arguments:"
+    echo "  package: The package name as output by list-packages"
+    echo
+    echo "Options:"
+    echo "  --help|-h Display this Message"
+    echo
+    echo "These Packages are available:"
+    $PHPENV_SCRIPTS_DIR/list-packages.sh
+    echo
+}
+
 source "$PHPENV_SCRIPTS_DIR/base.sh"
+
+if [ ! -e "/usr/bin/make" ]; then
+    phpenv_fail "It seems that \"make\" is not installed. Please install it."
+fi
 
 # Exit if the package argument is missing
 if [ -z $1 ]; then
-    echo "Usage: $0 [package]"
+    usage
     exit
 fi
 
@@ -20,11 +40,11 @@ if [ ! -f $package_file ]; then
 
     echo
     echo "Drop a PHP Release Tarball called $package.tar.bz2 into the $PACKAGE_DIR to make it available for building."
-    exit -1
+    exit 1
 fi
 
 OUTPUT_DIR="$TARGET_DIR/$package"
-mkdir $OUTPUT_DIR
+[[ ! -d $OUTPUT_DIR ]] && mkdir $OUTPUT_DIR
 
 # Extract the tarball if not already extracted
 if [ ! -d "$SOURCE_DIR/$package" ]; then
@@ -36,7 +56,7 @@ if [ ! -d "$SOURCE_DIR/$package" ]; then
 fi
 
 echo "Preparing Build Process..."
-source "$PHPENV_SCRIPTS_DIR/configure.sh"
+source "$PHPENV_SCRIPTS_DIR/build/configure.sh"
 
 echo "Compiling. This will take a while, so go get some coffee."
 cd "$SOURCE_DIR/$package"

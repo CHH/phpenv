@@ -1,7 +1,36 @@
 #!/bin/bash
 
+function help {
+    echo "Usage: $(basename $0) [command]"
+    echo
+    echo "Available Commands:"
+    echo "fetch build activate list-packages list-versions"
+    echo
+}
+
+function version {
+    echo "0.1.0alpha1"
+}
+
+if [ -z $1 ]; then
+    help
+    exit 1
+fi
+
+if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+    version
+    exit 0
+fi
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    help
+    exit 0
+fi
+
 if [ ! -f "$PHPENV_SCRIPTS_DIR/$1.sh" ]; then
     echo "Command $1 not found."
+    echo
+    help
     exit 1
 fi
 

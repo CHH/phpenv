@@ -1,21 +1,27 @@
 #/bin/bash
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
-
-function display_usage {
-    echo "Usage: $0 [release]"
+function usage {
+    echo "Fetches the Tarball for the given release"
     echo
-    echo "Example: $0 php-5.4.0alpha3"
+    echo "Usage: $(basename $0) [release]"
+    echo
+    echo "Arguments:"
+    echo "  release"
+    echo
+    echo "Example: $(basename $0) php-5.4.0alpha3"
+    echo
 }
 
+source "$PHPENV_SCRIPTS_DIR/base.sh"
+
 if [ -z $1 ]; then
-    display_usage
-    exit -1
+    usage
+    exit 1
 fi
 
 release=$1
 
-function download {
+function phpenv_download_release {
     local rel=$1
     local uri=$2
 
@@ -30,8 +36,7 @@ function download {
 
     if [ 0 -ne $? ]; then
         echo
-        echo "Error while fetching $rel from $uri"
-        exit 1
+        phpenv_fail "Error while fetching $rel from $uri"
     fi
 
     cp "$TEMP_DIR/$rel.tar.bz2" "$PACKAGE_DIR/"
@@ -44,8 +49,8 @@ function download {
 while read name uri
 do
     if [ "$name" = "$release" ]; then
-        download $release $uri
+        phpenv_download_release $release $uri
     fi
 done <"$PHPENV_ROOT/releases"
 
-echo "Release $release not found."
+phpenv_fail "Release $release not found."
