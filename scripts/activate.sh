@@ -50,8 +50,14 @@ executables="php php-config phpize pyrus php-cgi phar"
 for executable in $executables
 do
     echo "Activating $executable of $package"
-    activate_bin "$TARGET_DIR/$package/bin/$executable"
+    success=$(activate_bin "$TARGET_DIR/$package/bin/$executable")
+
+    if [ 0 -ne $success ]; then
+        phpenv_fail "Activation of $executable failed"
+    fi
 done
+
+# Activate Binaries provided by PEAR Packages
 
 if [ -h "$PHPENV_ROOT/bin/pear" ]; then
     rm "$PHPENV_ROOT/bin/pear"
