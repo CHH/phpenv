@@ -1,10 +1,10 @@
 #!/bin/bash
 
-function help {
+function usage {
     echo "Usage: $(basename $0) [command]"
     echo
     echo "Available Commands:"
-    echo "fetch build activate list-packages list-versions"
+    echo "fetch build activate list-packages list-versions remove which"
     echo
 }
 
@@ -23,7 +23,7 @@ if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
 fi
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    help
+    usage
     exit 0
 fi
 

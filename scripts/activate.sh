@@ -3,7 +3,7 @@
 function usage {
     echo "Sets the given version as default executable for this user"
     echo
-    echo "Usage: $(basename $0) [package]"
+    echo "Usage: phpenv $(basename $0 .sh) [package]"
     echo
     echo "Arguments:"
     echo "  package: Name of a built package"

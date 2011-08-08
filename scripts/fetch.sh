@@ -3,12 +3,12 @@
 function usage {
     echo "Fetches the Tarball for the given release"
     echo
-    echo "Usage: $(basename $0) [release]"
+    echo "Usage: phpenv $(basename $0 .sh) [release]"
     echo
     echo "Arguments:"
     echo "  release"
     echo
-    echo "Example: $(basename $0) php-5.4.0alpha3"
+    echo "Example: phpenv $(basename $0 .sh) php-5.4.0alpha3"
     echo
 }
 

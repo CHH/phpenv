@@ -3,7 +3,7 @@
 function usage {
     echo "Build a specific version of PHP"
     echo
-    echo "Usage: $(basename $0) [package]"
+    echo "Usage: phpenv $(basename $0 .sh) [package]"
     echo 
     echo "Arguments:"
     echo "  package: The package name as output by list-packages"
