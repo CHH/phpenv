@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage {
-    echo "Build a specific version of PHP"
+    echo "Build a given PHP version"
     echo
     echo "Usage: phpenv $(basename $0 .sh) [package]"
     echo 
@@ -50,6 +50,10 @@ OUTPUT_DIR="$TARGET_DIR/$package"
 if [ ! -d "$SOURCE_DIR/$package" ]; then
     echo "Extracting $package..."
     mkdir "$SOURCE_DIR/$package"
+
+    # The Archive contains at the root level a folder named after the 
+    # PHP Version or Build date of the PHP Version. Therefore its not
+    # so easily predictable and so we strip it off.
     tar -xj --strip-components 1 -f $package_file -C "$SOURCE_DIR/$package"
     echo "Done."
     echo

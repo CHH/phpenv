@@ -9,4 +9,4 @@ function usage {
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
 
-echo "$(readlink $PHPENV_ROOT/versions/local)"
+echo "This is currently not implemented"
