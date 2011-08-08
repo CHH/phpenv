@@ -29,17 +29,35 @@ if [ ! -d "$TARGET_DIR/$package" ]; then
     exit -1
 fi
 
-if [ -h "$TARGET_DIR/local" ]; then
-    rm "$TARGET_DIR/local"
+function activate_bin {
+    file=$1
+    target="$PHPENV_ROOT/bin/$(basename $1)"
+
+    if [ ! -f "$file" ]; then
+        return 1
+    fi
+
+    if [ -h "$target" ]; then
+        rm $target
+    fi
+    ln -s $file $target
+
+    return $?
+}
+
+executables="php php-config phpize pyrus php-cgi phar"
+
+for executable in $executables
+do
+    echo "Activating $executable of $package"
+    activate_bin "$TARGET_DIR/$package/bin/$executable"
+done
+
+if [ -h "$PHPENV_ROOT/bin/pear" ]; then
+    rm "$PHPENV_ROOT/bin/pear"
 fi
 
-echo "Activating $package"
-ln -s "$TARGET_DIR/$package" "$TARGET_DIR/local"
-
-if [ 0 -ne $? ]; then
-    phpenv_fail "Linking $TARGET_DIR/$package to $TARGET_DIR/local"
-    exit -1
-fi
+ln -s "$TARGET_DIR/$package/pear/bin" "$PHPENV_ROOT/bin/pear"
 
 echo "Success."
 exit 0

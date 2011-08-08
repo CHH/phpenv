@@ -58,6 +58,7 @@ fi
 echo "Preparing Build Process..."
 source "$PHPENV_SCRIPTS_DIR/build/configure.sh"
 
+echo
 echo "Compiling. This will take a while, so go get some coffee."
 cd "$SOURCE_DIR/$package"
 make > /dev/null
@@ -72,11 +73,11 @@ select ini_file in $ini_options; do
         break
     fi
 
-    if [ ! -f "$SOURCE_DIR/$package/$ini_file" ]; then
-        echo "$ini_file not found in $SOURCE_DIR/$package"
-    else
+    if [ -f "$SOURCE_DIR/$package/$ini_file" ]; then
         echo "Using $ini_file as php.ini"
         cp "$SOURCE_DIR/$package/$ini_file" "$OUTPUT_DIR/etc/php.ini"
+    else
+        echo "$ini_file not found in $SOURCE_DIR/$package"
     fi
     break
 done
@@ -84,7 +85,11 @@ done
 echo
 echo "Installing Extras"
 echo "================="
-source "$PHPENV_SCRIPTS_DIR/build_extras/pyrus.sh"
+
+for extra in "$PHPENV_SCRIPTS_DIR/build_extras/*.sh"
+do
+    source $extra
+done
 
 echo "Finished."
 exit 0
