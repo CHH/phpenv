@@ -50,7 +50,7 @@ if [ -d "/usr/lib64" ]; then
     options="$options --with-libdir=lib64"
 fi
 
-./configure $options
+./configure $options > /dev/null
 
 if [ 0 -ne $? ]; then
     phpenv_fail "Error while preparing Build."

@@ -48,7 +48,7 @@ OUTPUT_DIR="$TARGET_DIR/$package"
 
 # Extract the tarball if not already extracted
 if [ ! -d "$SOURCE_DIR/$package" ]; then
-    echo "Extracting $package."
+    echo "Extracting $package..."
     mkdir "$SOURCE_DIR/$package"
     tar -xj --strip-components 1 -f $package_file -C "$SOURCE_DIR/$package"
     echo "Done."
@@ -60,8 +60,8 @@ source "$PHPENV_SCRIPTS_DIR/build/configure.sh"
 
 echo "Compiling. This will take a while, so go get some coffee."
 cd "$SOURCE_DIR/$package"
-make
-make install
+make > /dev/null
+make install > /dev/null
 echo "Done."
 
 echo
@@ -75,7 +75,7 @@ select ini_file in $ini_options; do
     if [ ! -f "$SOURCE_DIR/$package/$ini_file" ]; then
         echo "$ini_file not found in $SOURCE_DIR/$package"
     else
-        echo "Using $ini_file"
+        echo "Using $ini_file as php.ini"
         cp "$SOURCE_DIR/$package/$ini_file" "$OUTPUT_DIR/etc/php.ini"
     fi
     break
@@ -83,6 +83,7 @@ done
 
 echo
 echo "Installing Extras"
+echo "================="
 source "$PHPENV_SCRIPTS_DIR/build_extras/pyrus.sh"
 
 echo "Finished."

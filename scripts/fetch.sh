@@ -42,7 +42,7 @@ function phpenv_download_release {
     cp "$TEMP_DIR/$rel.tar.bz2" "$PACKAGE_DIR/"
     rm "$TEMP_DIR/$rel.tar.bz2"
 
-    echo "Done."
+    echo "Done. You can now build $rel by executing \"phpenv build $rel\""
     exit 0
 }
 
