@@ -58,6 +58,8 @@ do
 done
 
 # Activate Binaries provided by PEAR Packages
+echo
+echo "Enabling Executables provided by PEAR Packages..."
 
 if [ -h "$PHPENV_ROOT/bin/pear" ]; then
     rm "$PHPENV_ROOT/bin/pear" -r
@@ -65,5 +67,11 @@ fi
 
 ln -s "$TARGET_DIR/$package/pear/bin" "$PHPENV_ROOT/bin/pear"
 
-echo "Success."
+echo "Done."
+echo
+echo "$package successfully enabled." 
+echo
+echo "Your Default PHP Versions is now:"
+echo $(php -v)
+echo
 exit 0

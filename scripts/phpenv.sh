@@ -15,7 +15,7 @@ function phpenv_usage {
     echo "Usage: phpenv [command]"
     echo
     echo "Available Commands:"
-    echo "fetch build activate list-packages list-versions remove which"
+    echo "fetch build enable disable list-packages list-versions remove which"
     echo
 }
 

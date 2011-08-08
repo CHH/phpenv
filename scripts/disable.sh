@@ -9,7 +9,19 @@ function usage {
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
 
-for executable in "$PHPENV_ROOT/bin/*"
+echo "Deactivating executables provided by phpenv"
+
+for executable in "$PHPENV_ROOT/bin/"*
 do
-    echo "Disabling $executable"
+    if [ -d $executable ]; then
+        rm $executable -r
+    else
+        rm $executable
+    fi
+
+    if [ 0 -ne $? ]; then
+        phpenv_fail "Failed to disable $executable"
+    fi
 done
+
+echo Done.

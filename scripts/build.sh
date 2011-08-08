@@ -57,6 +57,7 @@ fi
 
 echo "Preparing Build Process..."
 source "$PHPENV_SCRIPTS_DIR/build/configure.sh"
+echo "Done."
 
 echo
 echo "Compiling. This will take a while, so go get some coffee."
@@ -84,7 +85,7 @@ done
 
 echo
 echo "Installing Extras"
-echo "================="
+echo
 
 for extra in "$PHPENV_SCRIPTS_DIR/build_extras/*.sh"
 do
