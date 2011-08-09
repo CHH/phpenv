@@ -9,6 +9,10 @@ function usage {
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
 
+if [ -f "$PACKAGE_DIR/$package.tar.bz2" ]; then
+    rm "$PACKAGE_DIR/$package.tar.bz2"
+fi
+
 "phpenv remove $package" > /dev/null
 
 if [ 1 -eq $? ]; then

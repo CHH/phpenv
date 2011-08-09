@@ -64,7 +64,7 @@ source "$PHPENV_SCRIPTS_DIR/build/configure.sh"
 echo "Done."
 
 echo
-echo "Compiling. This will take a while, so go get some coffee."
+echo "Compiling. This will take a while. Get some coffee."
 cd "$SOURCE_DIR/$package"
 make > /dev/null
 make install > /dev/null
@@ -91,7 +91,7 @@ echo
 echo "Installing Extras"
 echo
 
-for extra in "$PHPENV_SCRIPTS_DIR/build_extras/*.sh"
+for extra in "$PHPENV_SCRIPTS_DIR/build_extras/"*.sh
 do
     source $extra
 done
