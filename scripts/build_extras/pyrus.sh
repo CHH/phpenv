@@ -2,7 +2,13 @@
 
 echo "Installing Pyrus..."
 
-wget -qP "$OUTPUT_DIR/bin" http://pear2.php.net/pyrus.phar 
+if [ 1 -eq $PHPENV_PYRUS_EXPERIMENTAL ]; then
+    pyrus_url="https://github.com/pyrus/Pyrus/raw/master/pyrus.phar"
+else
+    pyrus_url="http://pear2.php.net/pyrus.phar"
+fi
+
+wget -qP "$OUTPUT_DIR/bin" $pyrus_url
 
 if [ ! -d "$OUTPUT_DIR/pear" ]; then
     mkdir "$OUTPUT_DIR/pear"
