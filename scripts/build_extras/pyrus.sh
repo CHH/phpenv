@@ -2,7 +2,7 @@
 
 echo "Installing Pyrus..."
 
-if [ 1 -eq $PHPENV_PYRUS_EXPERIMENTAL ]; then
+if [ 1 -eq $PHPENV_USE_PYRUS_EXPERIMENTAL ]; then
     pyrus_url="https://github.com/pyrus/Pyrus/raw/master/pyrus.phar"
 else
     pyrus_url="http://pear2.php.net/pyrus.phar"
