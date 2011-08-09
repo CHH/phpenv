@@ -11,10 +11,14 @@ else
     git clone git://github.com/derickr/xdebug.git "$TEMP_DIR/xdebug" > /dev/null
 fi
 
+php_version=$(echo "<?php echo PHP_VERSION;" | "$OUTPUT_DIR/bin/php")
+
 cd "$TEMP_DIR/xdebug"
 
+[[ "$php_version" = *5.3.* ]] && git checkout XDEBUG_2_1_2 &> /dev/null;
+
 $OUTPUT_DIR/bin/phpize > /dev/null
-$TEMP_DIR/xdebug/configure --enable-xdebug > /dev/null
+$TEMP_DIR/xdebug/configure --enable-xdebug --with-php-config=$OUTPUT_DIR/bin/php-config > /dev/null
 
 make > /dev/null
 make install > /dev/null
@@ -30,5 +34,8 @@ if [ ! -f "$xdebug_ini" ]; then
     echo "zend_extension=\"$extension_dir/xdebug.so\"" > $xdebug_ini
     echo "html_errors=on" >> $xdebug_ini
 fi
+
+git reset --hard HEAD
+git checkout master &> /dev/null
 
 echo "Done."
