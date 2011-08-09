@@ -13,12 +13,12 @@ if [ -f "$PACKAGE_DIR/$package.tar.bz2" ]; then
     rm "$PACKAGE_DIR/$package.tar.bz2"
 fi
 
-"phpenv remove $package" > /dev/null
+"$PHPENV_SCRIPTS_DIR/remove.sh $package" > /dev/null
 
 if [ 1 -eq $? ]; then
     phpenv_fail "Package $package not found"
 fi
 
-"phpenv fetch $package"
+"$PHPENV_SCRIPTS_DIR/fetch.sh $package"
 
-"phpenv build $package"
+"$PHPENV_SCRIPTS_DIR/build.sh $package"
