@@ -46,5 +46,10 @@ function phpenv {
     shift
 
     "$PHPENV_SCRIPTS_DIR/$command.sh" $@
+
+    if [ "$command" = "enable" ] || [ "$command" = "disable" ]; then
+        hash -r
+    fi
+
     return $?
 }
