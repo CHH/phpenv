@@ -3,10 +3,6 @@
 export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
 
-if [ ! -d "$PHPENV_ROOT/bin/pear" ] && [ ! -h "$PHPENV_ROOT/bin/pear" ]; then
-    mkdir "$PHPENV_ROOT/bin/pear"
-fi
-
 export PATH="$PHPENV_ROOT/bin:\
 $PHPENV_ROOT/bin/pear:\
 $PATH"
@@ -53,3 +49,5 @@ function phpenv {
 
     return $?
 }
+
+export -f phpenv
