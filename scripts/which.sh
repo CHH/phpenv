@@ -9,4 +9,11 @@ function usage {
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
 
-echo "This is currently not implemented"
+if [ ! -f "$PHPENV_ROOT/enabled" ]; then
+    echo "No PHP Environment set as default"
+    exit 1
+fi
+
+package=$(cat "$PHPENV_ROOT/enabled")
+
+echo "$TARGET_DIR/$package"

@@ -96,5 +96,5 @@ do
     source $extra
 done
 
-echo "Finished."
+echo "Finished building $package."
 exit 0

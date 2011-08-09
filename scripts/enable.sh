@@ -67,11 +67,13 @@ fi
 
 ln -s "$TARGET_DIR/$package/pear/bin" "$PHPENV_ROOT/bin/pear"
 
+echo "$package" > "$PHPENV_ROOT/enabled"
+
 echo "Done."
 echo
 echo "$package successfully enabled." 
 echo
 echo "Your Default PHP Versions is now:"
-echo $(php -v)
+echo $(echo "<?php echo PHP_VERSION;" | php)
 echo
 exit 0

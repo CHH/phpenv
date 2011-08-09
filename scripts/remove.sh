@@ -45,12 +45,5 @@ if [ -d "$PHPENV_ROOT/source/$package" ]; then
     rm "$PHPENV_ROOT/source/$package" -rf
 fi
 
-activated_package="$($PHPENV_SCRIPTS_DIR/which.sh)"
-
-if [ "$PHPENV_ROOT/versions/$package" = $activated_package ]; then
-    echo "Package $package is the active environment, deactivating..."
-    rm "$PHPENV_ROOT/versions/local"
-fi
-
 echo
 echo "Removed $package"
