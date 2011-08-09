@@ -45,5 +45,4 @@ if [ -d "$PHPENV_ROOT/source/$package" ]; then
     rm "$PHPENV_ROOT/source/$package" -rf
 fi
 
-echo
-echo "Removed $package"
+echo "Done."

@@ -68,6 +68,11 @@ echo "Compiling. This will take a while. Get some coffee."
 cd "$SOURCE_DIR/$package"
 make > /dev/null
 make install > /dev/null
+
+if [ 0 -ne $? ]; then
+    phpenv_fail "Error in Build Process. Aborting."
+fi
+
 echo "Done."
 
 echo
