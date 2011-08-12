@@ -9,7 +9,7 @@ function usage {
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
 
-while [ ! -f "$PWD/.phpenv-default" ]
+while [ ! -f "$PWD/.phpenv-version" ]
 do
     if [ "$PWD" = "/" ]; then
         break
@@ -18,8 +18,8 @@ do
     cd ..
 done
 
-if [ -f "$PWD/.phpenv-default" ]; then
-    echo $(cat "$PWD/.phpenv-default")
+if [ -f "$PWD/.phpenv-version" ]; then
+    echo $(cat "$PWD/.phpenv-version")
     exit 0
 fi
 

@@ -4,11 +4,19 @@ function usage {
     echo "Traverses versions/*/bin/* and adds wrapper scripts"
     echo "to PHPEnv's PATH, which consider the current default"
     echo
-    echo "Usage: phpenv $(basename $0 .sh)"
+    echo "Usage: phpenv $(basename $0 .sh) [options]"
+    echo
+    echo "Options:"
+    echo "  --clean: Removes all executables in PHPEnv's PATH before"
+    echo "           creating new ones."
     echo
 }
 
 source "$PHPENV_SCRIPTS_DIR/base.sh"
+
+if [ "$1" = "--clean" ]; then
+    rm "$PHPENV_ROOT/bin/"*
+fi
 
 for file in $TARGET_DIR/*/bin/*
 do
