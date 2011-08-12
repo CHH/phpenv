@@ -3,7 +3,7 @@
 function usage {
     echo "Fetch a new Tarball and rebuild the Package"
     echo
-    echo "Usage: phpenv $(basename $0 .sh) [package]"
+    echo "Usage: phpenv $(basename $0 .sh) <package>"
     echo
 }
 

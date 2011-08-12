@@ -21,8 +21,8 @@ do
     fi
 done
 
-if [ -f "$PHPENV_ROOT/enabled" ]; then
-    rm "$PHPENV_ROOT/enabled"
+if [ -f "$PHPENV_ROOT/default" ]; then
+    rm "$PHPENV_ROOT/default"
 fi
 
 if [ -d "$PHPENV_ROOT/bin/pear" ]; then

@@ -3,7 +3,7 @@
 function usage {
     echo "Fetches the Tarball for the given release"
     echo
-    echo "Usage: phpenv $(basename $0 .sh) [release]"
+    echo "Usage: phpenv $(basename $0 .sh) <release>"
     echo
     echo "Arguments:"
     echo "  release"
@@ -42,7 +42,9 @@ function phpenv_download_release {
     cp "$TEMP_DIR/$rel.tar.bz2" "$PACKAGE_DIR/"
     rm "$TEMP_DIR/$rel.tar.bz2"
 
-    echo "Done. You can now build $rel by executing \"phpenv build $rel\""
+    echo "Done."
+    echo
+    echo "Type \"phpenv build $rel\" to compile $rel"
     exit 0
 }
 

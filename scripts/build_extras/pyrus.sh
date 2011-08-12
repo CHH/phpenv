@@ -2,7 +2,7 @@
 
 echo "Installing Pyrus..."
 
-if [ 1 -eq "$PHPENV_USE_PYRUS_EXPERIMENTAL" ]; then
+if [ -n "$PHPENV_USE_PYRUS_EXPERIMENTAL" ]; then
     pyrus_url="https://github.com/pyrus/Pyrus/raw/master/pyrus.phar"
 else
     pyrus_url="http://pear2.php.net/pyrus.phar"
@@ -12,13 +12,6 @@ wget -qP "$OUTPUT_DIR/bin" $pyrus_url
 
 if [ ! -d "$OUTPUT_DIR/pear" ]; then
     mkdir "$OUTPUT_DIR/pear"
-fi
-
-# This directory contains the binaries of PEAR Packages
-# and gets symlinked to $PHPENV_ROOT/bin/pear when this PHP
-# Version gets activated
-if [ ! -d "$OUTPUT_DIR/pear/bin" ]; then
-    mkdir "$OUTPUT_DIR/pear/bin"
 fi
 
 pyrus_home="$OUTPUT_DIR/share/pear"
@@ -34,6 +27,7 @@ fi
 echo "include_path=.:$OUTPUT_DIR/pear/php" > "$OUTPUT_DIR/etc/conf.d/pear.ini"
 
 # Create the Pyrus executable
+#
 pyrus_sh="$OUTPUT_DIR/bin/pyrus"
 
 echo "#!/bin/bash" > $pyrus_sh
@@ -46,10 +40,12 @@ echo "$OUTPUT_DIR/bin/php -dphar.readonly=0 $OUTPUT_DIR/bin/pyrus.phar \$*" >> $
 
 chmod +x "$OUTPUT_DIR/bin/pyrus"
 
+# Setup Pyrus to place executables in the version's bin directory
+# so executables can be later easier collected on rehash
 pear_sysconfig=$(cat <<EOF
 <?xml version="1.0"?>
 <pearconfig version="1.0">
-    <bin_dir>$OUTPUT_DIR/pear/bin</bin_dir>
+    <bin_dir>$OUTPUT_DIR/bin</bin_dir>
 </pearconfig>
 EOF
 )

@@ -3,15 +3,15 @@
 export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
 
-export PATH="$PHPENV_ROOT/bin:\
-$PHPENV_ROOT/bin/pear:\
-$PATH"
+export PATH="$PHPENV_ROOT/bin:$PATH"
 
 function phpenv_usage {
-    echo "Usage: phpenv [command]"
+    echo "Usage: phpenv <command>"
     echo
     echo "Available Commands:"
-    echo "fetch build enable disable list-packages list-versions remove which"
+    echo "fetch build set-default disable packages version versions remove exec"
+    echo
+    echo "Type \"phpenv help <command>\" to get help for a command."
     echo
 }
 
@@ -22,11 +22,16 @@ function phpenv {
     fi
 
     if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
-        echo "0.1.0alpha1"
+        echo $(cat "$PHPENV_ROOT/VERSION")
         return 0
     fi
 
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        phpenv_usage
+        return 0
+    fi
+
+    if [ "$1" = "base" ]; then
         phpenv_usage
         return 0
     fi
@@ -43,7 +48,7 @@ function phpenv {
 
     "$PHPENV_SCRIPTS_DIR/$command.sh" $@
 
-    if [ "$command" = "enable" ] || [ "$command" = "disable" ]; then
+    if [ "$command" = "rehash" ]; then
         hash -r
     fi
 

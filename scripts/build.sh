@@ -3,7 +3,7 @@
 function usage {
     echo "Build a given PHP version"
     echo
-    echo "Usage: phpenv $(basename $0 .sh) [package]"
+    echo "Usage: phpenv $(basename $0 .sh) <package>"
     echo 
     echo "Arguments:"
     echo "  package: The package name as output by list-packages"
@@ -12,7 +12,7 @@ function usage {
     echo "  --help|-h Display this Message"
     echo
     echo "These Packages are available:"
-    $PHPENV_SCRIPTS_DIR/list-packages.sh
+    $PHPENV_SCRIPTS_DIR/packages.sh
     echo
 }
 
@@ -36,7 +36,7 @@ if [ ! -f $package_file ]; then
     echo
     echo "These packages are available:"
 
-    $SCRIPTS_DIR/list-packages.sh
+    $SCRIPTS_DIR/packages.sh
 
     echo
     echo "Drop a PHP Release Tarball called $package.tar.bz2 into the $PACKAGE_DIR to make it available for building."
