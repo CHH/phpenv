@@ -2,14 +2,22 @@
 
 export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
-
 export PATH="$PHPENV_ROOT/bin:$PATH"
 
-function phpenv_usage {
-    echo "Usage: phpenv <command>"
+function _phpenv_usage {
+    echo "Usage: phpenv <command> [options]"
     echo
     echo "Available Commands:"
-    echo "fetch build set-default disable packages version versions remove exec"
+    
+    for cmd in "$PHPENV_SCRIPTS_DIR/"*.sh
+    do
+        if [ "$(basename $cmd)" = "base.sh" ] || [ "$(basename $cmd)" = "phpenv.sh" ]; then
+            continue
+        fi
+        echo -n "$(basename $cmd .sh) "
+    done
+
+    echo
     echo
     echo "Type \"phpenv help <command>\" to get help for a command."
     echo
@@ -17,7 +25,7 @@ function phpenv_usage {
 
 function phpenv {
     if [ -z $1 ]; then
-        phpenv_usage
+        _phpenv_usage
         return 1
     fi
 
@@ -54,5 +62,7 @@ function phpenv {
 
     return $?
 }
+
+phpenv rehash
 
 export -f phpenv
