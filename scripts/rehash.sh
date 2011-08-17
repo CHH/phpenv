@@ -12,13 +12,16 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
 
 if [ "$1" = "--clean" ]; then
     rm "$PHPENV_ROOT/bin/"*
 fi
 
-for file in $TARGET_DIR/*/bin/*
+for file in $PHPENV_ROOT/versions/*/bin/*
 do
     wrapper="$PHPENV_ROOT/bin/$(basename $file)"
 

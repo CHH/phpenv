@@ -7,7 +7,10 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
 
 version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")
 
@@ -25,7 +28,7 @@ else
     fi
 fi
 
-packages=$(ls -1 $TARGET_DIR)
+packages=$(ls -1 "$PHPENV_ROOT/versions")
 
 for package in $packages
 do

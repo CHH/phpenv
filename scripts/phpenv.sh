@@ -23,6 +23,18 @@ function _phpenv_usage {
     echo
 }
 
+function phpenv_fail {
+    if [ -z $2 ]; then
+        exit_code=1
+    else
+        exit_code=$2
+    fi
+
+    echo "phpenv: [ERROR] $1" >&2
+    exit $exit_code
+}
+export -f phpenv_fail
+
 function phpenv {
     if [ -z $1 ]; then
         _phpenv_usage
@@ -35,19 +47,19 @@ function phpenv {
     fi
 
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-        phpenv_usage
+        _phpenv_usage
         return 0
     fi
 
     if [ "$1" = "base" ]; then
-        phpenv_usage
+        _phpenv_usage
         return 0
     fi
 
     if [ ! -f "$PHPENV_SCRIPTS_DIR/$1.sh" ]; then
         echo "Command $1 not found."
         echo
-        phpenv_usage
+        _phpenv_usage
         return 1
     fi
 
@@ -62,7 +74,7 @@ function phpenv {
 
     return $?
 }
+export -f phpenv
 
 phpenv rehash
 
-export -f phpenv

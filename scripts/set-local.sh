@@ -6,12 +6,10 @@ function usage {
     echo "Usage: phpenv $(basename $0 .sh) <version>"
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
-
 E_VERSION_NOTFOUND=127
 E_ARGUMENT_MISSING=1
 
-if [ -z "$1" ]; then
+if [ -z "$1" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     usage
     exit $E_ARGUMENT_MISSING
 fi
@@ -21,7 +19,7 @@ if [ "$1" = "default" ]; then
         rm "$(pwd)/.phpenv-version"
         exit 0
     else
-        echo "No .phpenv-version found." >&2
+        echo "No .phpenv-version found in $(pwd)" >&2
         exit $E_VERSION_NOTFOUND
     fi
 fi

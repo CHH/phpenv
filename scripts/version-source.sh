@@ -10,7 +10,10 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
 
 if [ -n "$PHPENV_VERSION" ]; then
     echo "PHPENV_VERSION"

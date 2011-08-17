@@ -7,9 +7,12 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
-
 version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
 
 if [ 0 -ne $? ]; then
     echo "No Version set." >&2

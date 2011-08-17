@@ -13,9 +13,7 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
-
-if [ -z $1 ]; then
+if [ -z $1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     usage
     exit
 fi
@@ -23,15 +21,13 @@ fi
 package=$1
 
 if [ "$package" = "system" ]; then
-    if [ ! -f "$PHPENV_ROOT/default" ]; then
-        exit 1
+    if [ -f "$PHPENV_ROOT/default" ]; then
+        rm "$PHPENV_ROOT/default"
     fi
-
-    rm "$PHPENV_ROOT/default"
     exit 0
 fi
 
-if [ ! -d "$TARGET_DIR/$package" ]; then
+if [ ! -d "$PHPENV_ROOT/versions/$package" ]; then
     echo "Package $package not found in $TARGET_DIR"
     echo
     usage

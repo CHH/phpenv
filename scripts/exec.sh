@@ -9,7 +9,10 @@ function usage {
     echo
 }
 
-source "$PHPENV_SCRIPTS_DIR/base.sh"
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage
+    exit
+fi
 
 if [ "$1" = "--use" ] && [ -n "$2" ]; then
     version=$2
@@ -40,11 +43,10 @@ else
     fi
 fi
 
-realpath="$TARGET_DIR/$default/bin/$command"
+realpath="$PHPENV_ROOT/versions/$default/bin/$command"
 
 if [ ! -x "$realpath" ]; then
-    echo "phpenv: Command $command not found"
-    exit 1
+    phpenv_fail "Command \"$command\" not found."
 fi
 
 "$realpath" $@
