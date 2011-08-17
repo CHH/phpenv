@@ -16,6 +16,10 @@ export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
 export PATH="$PHPENV_ROOT/bin:$PATH"
 
+if [ ! -d "$PHPENV_ROOT/"{versions,bin} ]; then
+    mkdir -p "$PHPENV_ROOT/"{versions,bin}
+fi
+
 function phpenv_fail {
     if [ -z $2 ]; then
         exit_code=1

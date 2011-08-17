@@ -1,2 +1,3 @@
-packages/*.tar.bz2
+versions/
+bin/
 default
