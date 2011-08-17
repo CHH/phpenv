@@ -43,7 +43,7 @@ fi
 realpath="$PHPENV_ROOT/versions/$default/bin/$command"
 
 if [ ! -x "$realpath" ]; then
-    echo "Command \"$command\" not found." >&2
+    echo "phpenv: Command \"$command\" not found." >&2
     exit 127
 fi
 

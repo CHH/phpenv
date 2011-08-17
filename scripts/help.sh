@@ -7,11 +7,13 @@
 command=$1
 
 if [ -z "$command" ]; then
-    phpenv_fail "No Command given."
+    echo "phpenv: No Command given." >&2
+    exit 1
 fi
 
 if [ ! -f "$PHPENV_SCRIPTS_DIR/$command.sh" ]; then
-    phpenv_fail "Command \"$command\" not found."
+    echo "Command \"$command\" not found." >&2
+    exit 1
 fi
 
 grep '^#/' <"$PHPENV_SCRIPTS_DIR/$command.sh" | cut -c4- >&2

@@ -18,7 +18,7 @@ if [ "$1" = "default" ]; then
         rm "$(pwd)/.phpenv-version"
         exit 0
     else
-        echo "No .phpenv-version found in $(pwd)" >&2
+        echo "phpenv: No .phpenv-version found in $(pwd)" >&2
         exit $E_VERSION_NOTFOUND
     fi
 fi
