@@ -1,17 +1,16 @@
 #!/bin/bash
-
-function usage {
-    echo "Returns the Source for version information"
-    echo
-    echo "These Sources are considered (in that order):"
-    echo "  - PHPENV_VERSION variable"
-    echo "  - .phpenv-version file in the current working directory"
-    echo "  - The Default set with \"phpenv set-default\""
-    echo
-}
+#/ Returns how the PHP Version was set
+#/ 
+#/ Usage: phpenv version-source
+#/
+#/ These Sources are considered (in that order):
+#/   - PHPENV_VERSION variable
+#/   - .phpenv-version file in the current working directory
+#/   - The Default set with "phpenv set-default"
+#/
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
     exit
 fi
 

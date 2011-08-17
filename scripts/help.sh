@@ -1,4 +1,8 @@
 #!/bin/bash
+#/ Displays help for the given command
+#/
+#/ Usage: phpenv help <command>
+#/
 
 command=$1
 
@@ -10,4 +14,5 @@ if [ ! -f "$PHPENV_SCRIPTS_DIR/$command.sh" ]; then
     phpenv_fail "Command \"$command\" not found."
 fi
 
-"$PHPENV_SCRIPTS_DIR/$command.sh" --help
+grep '^#/' <"$PHPENV_SCRIPTS_DIR/$command.sh" | cut -c4- >&2
+exit 1

@@ -1,18 +1,15 @@
 #!/bin/bash
-
-function usage {
-    echo "Displays the current default PHP"
-    echo
-    echo "Usage: phpenv $(basename $0 .sh)"
-    echo
-}
-
-version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")
+#/ Displays the version of PHP which is used
+#/
+#/ Usage: phpenv version
+#/
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
-    exit
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
+    exit $?
 fi
+
+version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")
 
 if [ 0 -ne $? ]; then
     echo "No Version set." >&2

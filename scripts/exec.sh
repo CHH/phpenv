@@ -1,16 +1,13 @@
 #!/bin/bash
+#/ Runs the given executable
+#/
+#/ Usage: phpenv exec [--use ...] <executable> <arguments>,... [options]
+#/
 
 set -e
 
-function usage {
-    echo "Runs the provided executable of the current default version"
-    echo
-    echo "Usage: phpenv $(basename $0 .sh) [--use <version>] <executable> <arguments,...> [options]"
-    echo
-}
-
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
     exit
 fi
 

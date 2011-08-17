@@ -1,16 +1,15 @@
 #!/bin/bash
-
-function usage {
-    echo "Sets the project's PHP version"
-    echo
-    echo "Usage: phpenv $(basename $0 .sh) <version>"
-}
+#/ Sets the PHP Version for the current working 
+#/ directory and its subdirectories
+#/
+#/ Usage: phpenv set-local <version>
+#/
 
 E_VERSION_NOTFOUND=127
 E_ARGUMENT_MISSING=1
 
 if [ -z "$1" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
     exit $E_ARGUMENT_MISSING
 fi
 

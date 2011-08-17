@@ -1,27 +1,20 @@
 #!/bin/bash
+#/ Usage: phpenv <command> [<args>]
+#/
+#/ Some useful commands:
+#/     rehash         Generate new wrapper scripts for executables
+#/     set-default    Set the current user's default PHP version
+#/     set-local      Set the PHP version for the current working 
+#/                    directory and all subdirectories
+#/     versions       List all available PHP versions
+#/     version        Get the current PHP version
+#/
+#/ Type "phpenv help <command>" to get help for a command.
+#/
 
 export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
 export PATH="$PHPENV_ROOT/bin:$PATH"
-
-function _phpenv_usage {
-    echo "Usage: phpenv <command> [options]"
-    echo
-    echo "Available Commands:"
-    
-    for cmd in "$PHPENV_SCRIPTS_DIR/"*.sh
-    do
-        if [ "$(basename $cmd)" = "base.sh" ] || [ "$(basename $cmd)" = "phpenv.sh" ]; then
-            continue
-        fi
-        echo -n "$(basename $cmd .sh) "
-    done
-
-    echo
-    echo
-    echo "Type \"phpenv help <command>\" to get help for a command."
-    echo
-}
 
 function phpenv_fail {
     if [ -z $2 ]; then
@@ -35,9 +28,13 @@ function phpenv_fail {
 }
 export -f phpenv_fail
 
+function _phpenv_usage {
+    "$PHPENV_SCRIPTS_DIR/help.sh" "phpenv"
+}
+
 function phpenv {
     if [ -z $1 ]; then
-        _phpenv_usage
+        echo "phpenv: Argument \"command\" is missing." >&2
         return 1
     fi
 
@@ -48,18 +45,11 @@ function phpenv {
 
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
         _phpenv_usage
-        return 0
-    fi
-
-    if [ "$1" = "base" ]; then
-        _phpenv_usage
-        return 0
+        return 1
     fi
 
     if [ ! -f "$PHPENV_SCRIPTS_DIR/$1.sh" ]; then
-        echo "Command $1 not found."
-        echo
-        _phpenv_usage
+        echo "phpenv: Command \"$1\" not found."
         return 1
     fi
 

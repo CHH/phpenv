@@ -1,15 +1,12 @@
 #!/bin/bash
-
-function usage {
-    echo "Lists all compiled packages. The currently enabled version is marked with a \"*\""
-    echo
-    echo "Usage: phpenv $(basename $0 .sh)"
-    echo
-}
+#/ Lists all available PHP Versions
+#/
+#/ Usage: phpenv versions
+#/
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
-    exit
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
+    exit $?
 fi
 
 version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")

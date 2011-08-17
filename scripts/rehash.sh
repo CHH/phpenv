@@ -1,19 +1,15 @@
 #!/bin/bash
-
-function usage {
-    echo "Traverses versions/*/bin/* and adds wrapper scripts"
-    echo "to PHPEnv's PATH, which consider the current default"
-    echo
-    echo "Usage: phpenv $(basename $0 .sh) [options]"
-    echo
-    echo "Options:"
-    echo "  --clean: Removes all executables in PHPEnv's PATH before"
-    echo "           creating new ones."
-    echo
-}
+#/ Collects executables by all PHP versions and creates
+#/ wrapper scripts which proxy to the enabled version
+#/
+#/ Usage: phpenv rehash [--clean]
+#/
+#/ Options:
+#/     --clean: Removes all proxies before creating new ones.
+#/
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    usage
+    "$PHPENV_SCRIPTS_DIR/help.sh" $0
     exit
 fi
 
