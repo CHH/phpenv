@@ -16,25 +16,9 @@ export PHPENV_ROOT=$HOME/.phpenv
 export PHPENV_SCRIPTS_DIR=$PHPENV_ROOT/scripts
 export PATH="$PHPENV_ROOT/bin:$PATH"
 
-if [ ! -d "$PHPENV_ROOT/"{versions,bin} ]; then
+if [ ! -d "$PHPENV_ROOT/bin" ] || [ ! -d "$PHPENV_ROOT/versions" ]; then
     mkdir -p "$PHPENV_ROOT/"{versions,bin}
 fi
-
-function phpenv_fail {
-    if [ -z $2 ]; then
-        exit_code=1
-    else
-        exit_code=$2
-    fi
-
-    echo "phpenv: [ERROR] $1" >&2
-    exit $exit_code
-}
-export -f phpenv_fail
-
-function _phpenv_usage {
-    "$PHPENV_SCRIPTS_DIR/help.sh" "phpenv"
-}
 
 function phpenv {
     if [ -z $1 ]; then
@@ -48,7 +32,7 @@ function phpenv {
     fi
 
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-        _phpenv_usage
+        "$PHPENV_SCRIPTS_DIR/help.sh" "phpenv"
         return 1
     fi
 

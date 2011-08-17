@@ -9,29 +9,16 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     exit $?
 fi
 
+enabled=$("$PHPENV_SCRIPTS_DIR/version-name.sh")
 version_source=$("$PHPENV_SCRIPTS_DIR/version-source.sh")
 
-if [ 0 -ne $? ]; then
-    enabled=
-fi
+versions=$(ls -1 "$PHPENV_ROOT/versions")
 
-if [ "$version_source" = "PHPENV_VERSION" ]; then
-    enabled="$PHPENV_VERSION"
-else
-    if [ -f "$version_source" ]; then
-        enabled=$(cat "$version_source")
-    else
-        enabled=
-    fi
-fi
-
-packages=$(ls -1 "$PHPENV_ROOT/versions")
-
-for package in $packages
+for version in $versions
 do
-    if [ -n "$enabled" ] && [ "$enabled" = "$package" ]; then
-        echo "* $package (set by $version_source)"
+    if [ -n "$enabled" ] && [ "$enabled" = "$version" ]; then
+        echo "* $version (set by $version_source)"
     else
-        echo "  $package"
+        echo "  $version"
     fi
 done
