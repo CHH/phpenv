@@ -7,7 +7,7 @@ directory for PHP versioning.
 
 ## Requirements
 
-Git.
+You need Git installed.
 
 ## Install
 
