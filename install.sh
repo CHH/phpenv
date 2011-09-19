@@ -41,10 +41,6 @@ SH
 
 chmod +x "$PHPENV_ROOT/bin/phpenv"
 
-# Disable the rbenv bin in PHPENV_ROOT so it can not take precedence over
-# another rbenv installed on the system.
-rm "$PHPENV_ROOT/bin/rbenv"
-
 echo "Success."
 echo
 echo "Now add ~/.phpenv/bin to your \$PATH, add \
