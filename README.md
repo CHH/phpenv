@@ -15,6 +15,12 @@ Clone this repository and run the `install.sh` on your shell.
 Then add `~/.phpenv/bin` to your `PATH` and add `eval $(phpenv init -)`
 to your `.bashrc`.
 
+* * *
+__For rbenv users__: Make sure that `~/.rbenv/bin` takes precedence
+in the `PATH` over `~/.phpenv/bin` by placing it before, so `rbenv` gets
+used from `~/.rbenv`.
+* * *
+
 After that, the `phpenv` command should be available.
 The `phpenv` command is exactly the same as `rbenv` except it operates
 on the `~/.phpenv` directory.
