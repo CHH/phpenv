@@ -23,23 +23,59 @@
 
 set -e
 
-echo "Setting up phpenv in ~/.phpenv"
+RBENV_REPO="git://github.com/sstephenson/rbenv.git"
 
-PHPENV_ROOT="$HOME/.phpenv"
+phpenv_script() {
+    local root="$1"
 
-git clone git://github.com/sstephenson/rbenv.git "$PHPENV_ROOT" > /dev/null
-
-cat > "$PHPENV_ROOT/bin/phpenv" <<SH
+    cat <<SH
 #!/usr/bin/env bash
-export RBENV_ROOT=$PHPENV_ROOT
-
-DIRNAME="\$(dirname \$0)"
-RBENV=\$(readlink -f "\$DIRNAME/../libexec/rbenv")
-
-exec "\$RBENV" \$@
+export RBENV_ROOT=$root
+exec "\$RBENV_ROOT/libexec/rbenv" \$@
 SH
+}
 
-chmod +x "$PHPENV_ROOT/bin/phpenv"
+create_phpenv_bin() {
+    local install_location=$1
+
+    phpenv_script "$install_location" > "$install_location/bin/phpenv"
+    chmod +x "$install_location/bin/phpenv"
+}
+
+update_phpenv() {
+    local install_location=$1
+    local cwd=$(pwd)
+    cd "$install_location"
+
+    git pull origin master &> /dev/null
+
+    cd "$cwd"
+}
+
+clone_rbenv() {
+    local install_location=$1
+    git clone "$RBENV_REPO" "$install_location" > /dev/null
+}
+
+if [ -z "$PHPENV_ROOT" ]; then
+    PHPENV_ROOT="$HOME/.phpenv"
+fi
+
+if [ -z "$CHECKOUT" ]; then
+    CHECKOUT=yes
+fi
+
+if [ "$UPDATE" = "yes" ]; then
+    echo "Updating phpenv in $PHPENV_ROOT"
+    update_phpenv "$PHPENV_ROOT"
+else
+    echo "Installing phpenv in $PHPENV_ROOT"
+    if [ "$CHECKOUT" = "yes" ]; then
+        clone_rbenv "$PHPENV_ROOT"
+    fi
+fi
+
+create_phpenv_bin "$PHPENV_ROOT"
 
 echo "Success."
 echo
