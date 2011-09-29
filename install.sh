@@ -79,7 +79,7 @@ create_phpenv_bin "$PHPENV_ROOT"
 
 echo "Success."
 echo
-echo "Now add ~/.phpenv/bin to your \$PATH, add \
+echo "Now add $PHPENV_ROOT/bin to your \$PATH, add \
 \"eval \$(phpenv init -)\" at the end of your ~/.bashrc \
 and restart your shell to use phpenv."
 echo
