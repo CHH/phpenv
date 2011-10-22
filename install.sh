@@ -72,6 +72,7 @@ else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
+        sed -i -e 's/rbenv/phpenv/g' $PHPENV_ROOT/completions/rbenv.zsh
     fi
 fi
 
