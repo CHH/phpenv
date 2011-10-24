@@ -1,0 +1,18 @@
+phpenv-install.sh(1) -- Sets up a separate rbenv environment for PHP
+=================
+
+## SYNOPSIS
+
+`phpenv-install.sh`
+
+## DESCRIPTION
+
+The phpenv-install.sh command sets up a separate rbenv environment for usage with PHP. This environment is stored in the `$HOME/.phpenv` directory and contains a `phpenv` executable which sets the `RBENV_ROOT` environment variable to `$HOME/.phpenv`.
+
+The `phpenv-install.sh` command has an optional "update" mode which updates the `$HOME/.phpenv` to the latest source code from the rbenv repository and creates a new `phpenv` executable. This mode is triggered by setting the `UPDATE` environment variable before calling `phpenv-install.sh`, for example:
+
+    $ UPDATE=yes phpenv-install.sh
+
+## SEE ALSO
+
+[rbenv](http://github.com/sstephenson/rbenv)
