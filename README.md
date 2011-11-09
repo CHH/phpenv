@@ -1,46 +1,92 @@
-# phpenv
+phpenv-install.sh(1) -- Sets up a separate rbenv environment for PHP
+=================
 
-[rbenv](https://github.com/sstephenson/rbenv) based version managment for PHP.
+## SYNOPSIS
 
-This is a small install script which sets up rbenv in a separate
-directory for PHP versioning.
+`phpenv-install.sh` <br>
+`UPDATE=yes phpenv-install.sh`
 
-## Requirements
+## DESCRIPTION
 
-You need Git installed.
+The `phpenv-install.sh` command sets up a separate rbenv 
+environment for usage with PHP. This environment is 
+stored in the `$HOME/.phpenv` directory and contains
+a `phpenv` executable which sets the `RBENV_ROOT` 
+environment variable to `$HOME/.phpenv`.
 
-## Install
+To install PHP versions, just put them to the `$HOME/.phpenv/versions`
+directory. You can use [php-build](http://github.com/chh/php-build)
+to do this with one command:
 
-Clone this repository and run the `install.sh` on your shell.
-Then add `~/.phpenv/bin` to your `PATH` and add `eval $(phpenv init -)`
-to your `.bashrc`.
+    $ php-build -i development 5.3.8 $HOME/.phpenv/versions/5.3.8
+    $ phpenv versions
+      5.3.8
+    $ phpenv rehash
+    $ phpenv global 5.3.8
+    $ php --version
+      PHP 5.3.8 (cli) (built: Sep 12 2011 09:38:36) 
+      Copyright (c) 1997-2011 The PHP Group
+      Zend Engine v2.3.0, Copyright (c) 1998-2011 Zend Technologies
+      with Xdebug v2.1.2, Copyright (c) 2002-2011, by Derick Rethans
 
-* * *
+The `phpenv-install.sh` command has an optional 
+"update" mode which updates the `$HOME/.phpenv` to 
+the latest source code from the rbenv repository 
+and creates a new `phpenv` executable.
+
+This mode is triggered by setting the 
+`UPDATE` environment variable before 
+calling `phpenv-install.sh`, for example:
+
+`$ UPDATE=yes phpenv-install.sh`
+
+Finally, enable phpenv in your shell by adding `$HOME/.phpenv/bin` and
+`$HOME/.phpenv/shims` to your `PATH` and adding `eval "$(phpenv init -)"`
+to your `$HOME/.bash_profile` or `$HOME/.bashrc` (or your shell's 
+respective file) and restart your shell.
+
+## IMPORTANT NOTES
+
 __For rbenv users__: Make sure that `~/.rbenv/bin` takes precedence
 in the `PATH` over `~/.phpenv/bin` by placing it before, so `rbenv` gets
 used from `~/.rbenv`.
-* * *
 
-After that, the `phpenv` command should be available.
-The `phpenv` command is exactly the same as `rbenv` except it operates
-on the `~/.phpenv` directory.
+You need to have `git` installed to run the `phpenv-install.sh` command.
 
-To install versions just drop them to the `~/.phpenv/versions`
-directory, just like in `rbenv`.
+## LICENSE
+#
+The MIT License
 
-For convenienve you can use [php-build](https://github.com/CHH/php-build)
-to do this with one command:
+Copyright (c) 2011 Christoph Hochstrasser
 
-```
-$ php-build 5.3.8 ~/.phpenv/versions/5.3.8
-```
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## Documentation
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-Please see the [rbenv](https://github.com/sstephenson/rbenv) Project
-for documentation.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
-## Thanks
+## SEE ALSO
 
-Thank you [Sam Stephenson](https://github.com/sstephenson) for creating
-the awesome `rbenv`!
+[rbenv](http://github.com/sstephenson/rbenv)
+
+
+[SYNOPSIS]: #SYNOPSIS "SYNOPSIS"
+[DESCRIPTION]: #DESCRIPTION "DESCRIPTION"
+[IMPORTANT NOTES]: #IMPORTANT-NOTES "IMPORTANT NOTES"
+[LICENSE]: #LICENSE "LICENSE"
+[SEE ALSO]: #SEE-ALSO "SEE ALSO"
+
+
+[phpenv-install.sh(1)]: phpenv-install.1.html
