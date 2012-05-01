@@ -23,7 +23,7 @@
 
 set -e
 
-RBENV_REPO="git://github.com/sstephenson/rbenv.git"
+RBENV_REPO="https://github.com/sstephenson/rbenv.git"
 
 phpenv_script() {
     local root="$1"
