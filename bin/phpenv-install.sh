@@ -30,7 +30,8 @@ phpenv_script() {
 
     cat <<SH
 #!/usr/bin/env bash
-export RBENV_ROOT='$root'
+export PHPENV_ROOT=\${PHPENV_ROOT:-'$root'}
+export RBENV_ROOT="\$PHPENV_ROOT"
 exec "\$RBENV_ROOT/libexec/rbenv" "\$@"
 SH
 }
