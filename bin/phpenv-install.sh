@@ -30,20 +30,20 @@ phpenv_script() {
 
     cat <<SH
 #!/usr/bin/env bash
-export RBENV_ROOT=$root
-exec "\$RBENV_ROOT/libexec/rbenv" \$@
+export RBENV_ROOT='$root'
+exec "\$RBENV_ROOT/libexec/rbenv" "\$@"
 SH
 }
 
 create_phpenv_bin() {
-    local install_location=$1
+    local install_location="$1"
 
     phpenv_script "$install_location" > "$install_location/bin/phpenv"
     chmod +x "$install_location/bin/phpenv"
 }
 
 update_phpenv() {
-    local install_location=$1
+    local install_location="$1"
     local cwd=$(pwd)
     cd "$install_location"
 
@@ -53,7 +53,7 @@ update_phpenv() {
 }
 
 clone_rbenv() {
-    local install_location=$1
+    local install_location="$1"
     git clone "$RBENV_REPO" "$install_location" > /dev/null
 }
 
@@ -72,7 +72,7 @@ else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
-        sed -i -e 's/rbenv/phpenv/g' $PHPENV_ROOT/completions/rbenv.{bash,zsh}
+        sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
     fi
 fi
 
