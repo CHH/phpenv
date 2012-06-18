@@ -73,6 +73,7 @@ else
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
         sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
+        sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
     fi
 fi
 
