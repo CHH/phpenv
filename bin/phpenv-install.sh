@@ -30,7 +30,8 @@ phpenv_script() {
 
     cat <<SH
 #!/usr/bin/env bash
-export RBENV_ROOT='$root'
+export PHPENV_ROOT=\${PHPENV_ROOT:-'$root'}
+export RBENV_ROOT="\$PHPENV_ROOT"
 exec "\$RBENV_ROOT/libexec/rbenv" "\$@"
 SH
 }
@@ -73,6 +74,7 @@ else
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
         sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
+        sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
     fi
 fi
 
