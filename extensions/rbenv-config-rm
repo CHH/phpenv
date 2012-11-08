@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$RBENV_DEBUG" ] && set -x
+
+PHPENV_VERSION_NAME="$(rbenv-version-name)"
+PHPENV_CONFIG_PATH="${RBENV_ROOT}/versions/${PHPENV_VERSION_NAME}/etc/conf.d"
+
+# Provide rbenv completions
+if [ "$1" = "--complete" ]; then
+  exec ls "$PHPENV_CONFIG_PATH"
+fi
+
+PHPENV_CONFIG_FILE=$1
+
+if [ -f $PHPENV_CONFIG_FILE ]; then
+  rm "${PHPENV_CONFIG_PATH}/$1"
+  echo "File $PHPENV_CONFIG_FILE removed from $PHPENV_CONFIG_PATH."
+else
+  echo "File $PHPENV_CONFIG_FILE does no exist."
+  exit 1
+fi
