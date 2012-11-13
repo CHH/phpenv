@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$RBENV_DEBUG" ] && set -x
+
+PHPENV_VERSION_NAME="$(rbenv-version-name)"
+PHPENV_CONFIG_PATH="${RBENV_ROOT}/versions/${PHPENV_VERSION_NAME}/etc/conf.d"
+PHPENV_CONFIG_FILE=$1
+
+if [ -f $PHPENV_CONFIG_FILE ]; then
+  cp "$PHPENV_CONFIG_FILE" "$PHPENV_CONFIG_PATH"
+  echo "File $PHPENV_CONFIG_FILE added to $PHPENV_CONFIG_PATH."
+else
+  echo "File $PHPENV_CONFIG_FILE does no exist."
+  exit 1
+fi
