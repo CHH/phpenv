@@ -7,8 +7,8 @@ Sets up a separate rbenv environment for PHP
 
 ## SYNOPSIS
 
-`phpenv-install.sh` <br>
-`UPDATE=yes phpenv-install.sh`
+    phpenv-install.sh
+    UPDATE=yes phpenv-install.sh
 
 ## DESCRIPTION
 
@@ -42,7 +42,7 @@ This mode is triggered by setting the
 `UPDATE` environment variable before 
 calling `phpenv-install.sh`, for example:
 
-`$ UPDATE=yes phpenv-install.sh`
+    $ UPDATE=yes phpenv-install.sh
 
 Finally, enable phpenv in your shell by adding `$HOME/.phpenv/bin` and
 `$HOME/.phpenv/shims` to your `PATH` and adding `eval "$(phpenv init -)"`
