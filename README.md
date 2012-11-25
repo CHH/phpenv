@@ -51,11 +51,11 @@ respective file) and restart your shell.
 
 ## IMPORTANT NOTES
 
-__For rbenv users__: Make sure that `~/.rbenv/bin` takes precedence
-in the `PATH` over `~/.phpenv/bin` by placing it before, so `rbenv` gets
-used from `~/.rbenv`.
+- **For rbenv users**: Make sure that `~/.rbenv/bin` takes precedence
+  in the `PATH` over `~/.phpenv/bin` by placing it before, so `rbenv` gets
+  used from `~/.rbenv`.
 
-You need to have `git` installed to run the `phpenv-install.sh` command.
+-  You need to have `git` installed to run the `phpenv-install.sh` command.
 
 ## LICENSE
 #
