@@ -1,5 +1,9 @@
-phpenv-install.sh(1) -- Sets up a separate rbenv environment for PHP
-=================
+# phpenv
+
+Sets up a separate rbenv environment for PHP
+
+[man page](https://github.com/CHH/phpenv/blob/master/man/phpenv-install.1.ronn)
+
 
 ## SYNOPSIS
 
@@ -87,6 +91,3 @@ THE SOFTWARE.
 [IMPORTANT NOTES]: #IMPORTANT-NOTES "IMPORTANT NOTES"
 [LICENSE]: #LICENSE "LICENSE"
 [SEE ALSO]: #SEE-ALSO "SEE ALSO"
-
-
-[phpenv-install.sh(1)]: phpenv-install.1.html
