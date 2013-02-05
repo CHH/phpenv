@@ -7,8 +7,9 @@ Sets up a separate rbenv environment for PHP
 
 ## SYNOPSIS
 
-    phpenv-install.sh
-    UPDATE=yes phpenv-install.sh
+    $ phpenv-install.sh
+    $ UPDATE=yes phpenv-install.sh
+    $ PHPENV_ROOT=/usr/local/phpenv phpenv-install.sh
 
 ## DESCRIPTION
 
@@ -48,6 +49,18 @@ Finally, enable phpenv in your shell by adding `$HOME/.phpenv/bin` and
 `$HOME/.phpenv/shims` to your `PATH` and adding `eval "$(phpenv init -)"`
 to your `$HOME/.bash_profile` or `$HOME/.bashrc` (or your shell's 
 respective file) and restart your shell.
+
+### SYSTEM WIDE INSTALL
+
+Using `phpenv` as system wide install,
+`PHPENV_ROOT` environment variable before
+calling `phpenv-install.sh`, for example:
+
+    $ PHPENV_ROOT=/usr/local/phpenv ./phpenv-install.sh
+
+You can also check as reference how to install phpenv system-wide.
+See: [phpenv-install-system-wide.sh](https://gist.github.com/banyan/4715950)
+
 
 ## IMPORTANT NOTES
 
