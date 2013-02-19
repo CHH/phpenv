@@ -73,6 +73,10 @@ else
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
         sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
+        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
+        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
+        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
+        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
     fi
 fi
 
