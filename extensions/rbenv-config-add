@@ -10,6 +10,6 @@ if [ -f $PHPENV_CONFIG_FILE ]; then
   cp "$PHPENV_CONFIG_FILE" "$PHPENV_CONFIG_PATH"
   echo "File $PHPENV_CONFIG_FILE added to $PHPENV_CONFIG_PATH."
 else
-  echo "File $PHPENV_CONFIG_FILE does no exist."
+  echo "File $PHPENV_CONFIG_FILE does not exist."
   exit 1
 fi
