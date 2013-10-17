@@ -30,7 +30,8 @@ phpenv_script() {
 
     cat <<SH
 #!/usr/bin/env bash
-export RBENV_ROOT='$root'
+export PHPENV_ROOT=\${PHPENV_ROOT:-'$root'}
+export RBENV_ROOT="\$PHPENV_ROOT"
 exec "\$RBENV_ROOT/libexec/rbenv" "\$@"
 SH
 }
@@ -77,6 +78,8 @@ else
         sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
         sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
         sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
+        sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
+        sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$PHPENV_ROOT"/libexec/rbenv-init
     fi
 fi
 
