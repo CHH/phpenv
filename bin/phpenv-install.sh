@@ -23,22 +23,23 @@
 
 set -e
 
-RBENV_REPO="https://github.com/sstephenson/rbenv.git"
+RBENV_REPO="https://github.com/sstephenson/rbenv"
+PHPENV_REPO="https://github.com/chh/phpenv"
 
 phpenv_script() {
     local root="$1"
-
+    
     cat <<SH
 #!/usr/bin/env bash
 export PHPENV_ROOT=\${PHPENV_ROOT:-'$root'}
 export RBENV_ROOT="\$PHPENV_ROOT"
-exec "\$RBENV_ROOT/libexec/rbenv" "\$@"
+exec "\$RBENV_ROOT/libexec/phpenv" "\$@"
 SH
 }
 
 create_phpenv_bin() {
     local install_location="$1"
-
+    
     phpenv_script "$install_location" > "$install_location/bin/phpenv"
     chmod +x "$install_location/bin/phpenv"
 }
@@ -61,13 +62,30 @@ clone_rbenv() {
 phpenvify() {
     local install_location="$1"
     local cwd=$(pwd)
+    
+    rev="$(cd "$(dirname "$0")" && git rev-parse --short HEAD)"
+    
     cd "$install_location"
     
-    for f in bin/rbenv* completions/rbenv* libexec/rbenv*; do
-        cp -va "$f" "${f/rbenv/phpenv}"
+    rm -f bin/rbenv bin/ruby-local-exec
+    
+    # Create file phpenv prefixed copies of the original rbenv files
+    for f in completions/rbenv* libexec/rbenv*; do
+        cp -a "$f" "${f/rbenv/phpenv}"
     done
     
-    sed --in-place -e 's/rbenv/phpenv/g' -e 's/RBENV/PHPENV/g' -e 's/Ruby/PHP/g' bin/phpenv* completions/phpenv* libexec/phpenv*
+    # Remove all rbenv/Ruby from phpenv prefixed files
+    sed --in-place -e 's/rbenv/phpenv/g' -e 's/RBENV/PHPENV/g' -e 's/Ruby/PHP/g' completions/phpenv* libexec/phpenv*
+    
+    # Fix the version
+    cat <<SH > libexec/phpenv---version
+#!/bin/sh
+echo "phpenv $rev - based on \`$PHPENV_ROOT/libexec/rbenv---version\`"
+SH
+    chmod a+x libexec/phpenv---version
+    
+    # Fix link in help text:
+    sed --in-place -e "s|^.*For full documentation.*\$|  echo \"For full documentation, see:\"\n  echo \" rbenv: ${RBENV_REPO}#readme\"\n  echo \" phpenv: ${PHPENV_REPO}#readme\"|" libexec/phpenv-help
     
     cd "$cwd"
 }
@@ -87,10 +105,10 @@ else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
-        phpenvify "$PHPENV_ROOT"
     fi
 fi
 
+phpenvify "$PHPENV_ROOT"
 create_phpenv_bin "$PHPENV_ROOT"
 
 echo "Success."
@@ -98,6 +116,10 @@ echo
 echo "export PATH=\"${PHPENV_ROOT}/bin:"'$PATH"'
 echo 'eval "$(phpenv init -)"'
 echo
-echo "Add above line at the end of your ~/.bashrc \
+echo "Add above lines at the end of your ~/.bashrc \
 and restart your shell to use phpenv."
+echo
+echo "For bash completion support, also include the following line:"
+echo
+echo "source \"${PHPENV_ROOT}/completion/phpenv.bash\""
 echo
