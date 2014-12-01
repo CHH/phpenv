@@ -28,7 +28,7 @@ PHPENV_REPO="https://github.com/chh/phpenv"
 
 phpenv_script() {
     local root="$1"
-    
+
     cat <<SH
 #!/usr/bin/env bash
 export PHPENV_ROOT=\${PHPENV_ROOT:-'$root'}
@@ -39,7 +39,7 @@ SH
 
 create_phpenv_bin() {
     local install_location="$1"
-    
+
     phpenv_script "$install_location" > "$install_location/bin/phpenv"
     chmod +x "$install_location/bin/phpenv"
 }
@@ -62,31 +62,31 @@ clone_rbenv() {
 phpenvify() {
     local install_location="$1"
     local cwd=$(pwd)
-    
+
     rev="$(cd "$(dirname "$0")" && git rev-parse --short HEAD)"
-    
+
     cd "$install_location"
-    
+
     rm -f bin/rbenv bin/ruby-local-exec
-    
+
     # Create file phpenv prefixed copies of the original rbenv files
     for f in completions/rbenv* libexec/rbenv*; do
         cp -a "$f" "${f/rbenv/phpenv}"
     done
-    
+
     # Remove all rbenv/Ruby from phpenv prefixed files
     sed --in-place -e 's/rbenv/phpenv/g' -e 's/RBENV/PHPENV/g' -e 's/Ruby/PHP/g' completions/phpenv* libexec/phpenv*
-    
+
     # Fix the version
     cat <<SH > libexec/phpenv---version
 #!/bin/sh
 echo "phpenv $rev - based on \`$PHPENV_ROOT/libexec/rbenv---version\`"
 SH
     chmod a+x libexec/phpenv---version
-    
+
     # Fix link in help text:
     sed --in-place -e "s|^.*For full documentation.*\$|  echo \"For full documentation, see:\"\n  echo \" rbenv: ${RBENV_REPO}#readme\"\n  echo \" phpenv: ${PHPENV_REPO}#readme\"|" libexec/phpenv-help
-    
+
     cd "$cwd"
 }
 
