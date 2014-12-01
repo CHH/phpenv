@@ -121,5 +121,5 @@ and restart your shell to use phpenv."
 echo
 echo "For bash completion support, also include the following line:"
 echo
-echo "source \"${PHPENV_ROOT}/completion/phpenv.bash\""
+echo "source \"${PHPENV_ROOT}/completions/phpenv.bash\""
 echo
