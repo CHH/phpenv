@@ -81,6 +81,10 @@ else
         sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
         sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$PHPENV_ROOT"/libexec/rbenv-init
         sed -i -e 's/\Ruby/PHP/g' "$PHPENV_ROOT"/libexec/rbenv-which
+        sed -i -e 's/"$RBENV_ROOT"\/versions\/\*\/bin\/\*/"$RBENV_ROOT"\/versions\/*\/{bin,sbin}\/*/g' "$PHPENV_ROOT"/libexec/rbenv-rehash
+        sed -i -e '/RBENV_COMMAND_PATH="${RBENV_ROOT}\/versions\/${RBENV_VERSION}\/bin\/${RBENV_COMMAND}"/a \ \ RBENV_COMMAND_SBIN_PATH="${RBENV_ROOT}\/versions\/${RBENV_VERSION}\/sbin\/${RBENV_COMMAND}"' "$PHPENV_ROOT"/libexec/rbenv-which
+        sed -i -e '/echo "$RBENV_COMMAND_PATH"/a elif [ -x "$RBENV_COMMAND_SBIN_PATH" ]; then' "$PHPENV_ROOT"/libexec/rbenv-which
+        sed -i -e '/elif \[ -x "$RBENV_COMMAND_SBIN_PATH" \]; then/a \ \ echo "$RBENV_COMMAND_SBIN_PATH"' "$PHPENV_ROOT"/libexec/rbenv-which
     fi
 fi
 
