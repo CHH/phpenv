@@ -55,7 +55,16 @@ update_phpenv() {
 
 clone_rbenv() {
     local install_location="$1"
+    local revision="$2"
+    local cwd=$(pwd)
+
     git clone "$RBENV_REPO" "$install_location" > /dev/null
+
+    if [ -n "$revision" ]; then
+        cd "$install_location"
+        git reset --hard "$revision"
+        cd "$cwd"
+    fi
 }
 
 if [ -z "$PHPENV_ROOT" ]; then
@@ -72,7 +81,7 @@ if [ "$UPDATE" = "yes" ]; then
 else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
-        clone_rbenv "$PHPENV_ROOT"
+        clone_rbenv "$PHPENV_ROOT" "$PHPENV_RBENV_REVISION"
         sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
         sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
         sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
