@@ -48,7 +48,7 @@ update_phpenv() {
     local cwd=$(pwd)
     cd "$install_location"
 
-    git pull origin master &> /dev/null
+    git pull origin master
 
     cd "$cwd"
 }
