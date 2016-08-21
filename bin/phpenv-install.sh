@@ -58,6 +58,19 @@ clone_rbenv() {
     git clone "$RBENV_REPO" "$install_location" > /dev/null
 }
 
+replace_rbenv() {
+    local install_location="$1"
+
+    sed -i -e 's/rbenv/phpenv/g' "$install_location"/completions/rbenv.{bash,zsh}
+    sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$install_location"/libexec/rbenv-local
+    sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$install_location"/libexec/rbenv-version-file
+    sed -i -s 's/\.ruby-version/.php-version/g' "$install_location"/libexec/rbenv-local
+    sed -i -s 's/\.ruby-version/.php-version/g' "$install_location"/libexec/rbenv-version-file
+    sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$install_location"/libexec/rbenv-init
+    sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$install_location"/libexec/rbenv-init
+    sed -i -e 's/\Ruby/PHP/g' "$install_location"/libexec/rbenv-which
+}
+
 if [ -z "$PHPENV_ROOT" ]; then
     PHPENV_ROOT="$HOME/.phpenv"
 fi
@@ -73,14 +86,7 @@ else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
-        sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
-        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
-        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
-        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
-        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
-        sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
-        sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$PHPENV_ROOT"/libexec/rbenv-init
-        sed -i -e 's/\Ruby/PHP/g' "$PHPENV_ROOT"/libexec/rbenv-which
+        replace_rbenv "$PHPENV_ROOT"
     fi
 fi
 
