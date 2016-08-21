@@ -48,6 +48,7 @@ update_phpenv() {
     local cwd=$(pwd)
     cd "$install_location"
 
+    git checkout .
     git pull origin master
 
     cd "$cwd"
@@ -82,6 +83,7 @@ fi
 if [ "$UPDATE" = "yes" ]; then
     echo "Updating phpenv in $PHPENV_ROOT"
     update_phpenv "$PHPENV_ROOT"
+    replace_rbenv "$PHPENV_ROOT"
 else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
