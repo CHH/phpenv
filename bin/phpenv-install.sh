@@ -70,6 +70,7 @@ replace_rbenv() {
     sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$install_location"/libexec/rbenv-init
     sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$install_location"/libexec/rbenv-init
     sed -i -e 's/\Ruby/PHP/g' "$install_location"/libexec/rbenv-which
+    sed -i -e 's/RBENV_VERSION/PHPENV_VERSION/g' "$PHPENV_ROOT"/libexec/rbenv-*
 }
 
 if [ -z "$PHPENV_ROOT" ]; then
