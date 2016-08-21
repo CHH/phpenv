@@ -48,7 +48,8 @@ update_phpenv() {
     local cwd=$(pwd)
     cd "$install_location"
 
-    git pull origin master &> /dev/null
+    git checkout .
+    git pull origin master
 
     cd "$cwd"
 }
@@ -56,6 +57,19 @@ update_phpenv() {
 clone_rbenv() {
     local install_location="$1"
     git clone "$RBENV_REPO" "$install_location" > /dev/null
+}
+
+replace_rbenv() {
+    local install_location="$1"
+
+    sed -i -e 's/rbenv/phpenv/g' "$install_location"/completions/rbenv.{bash,zsh}
+    sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$install_location"/libexec/rbenv-local
+    sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$install_location"/libexec/rbenv-version-file
+    sed -i -s 's/\.ruby-version/.php-version/g' "$install_location"/libexec/rbenv-local
+    sed -i -s 's/\.ruby-version/.php-version/g' "$install_location"/libexec/rbenv-version-file
+    sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$install_location"/libexec/rbenv-init
+    sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$install_location"/libexec/rbenv-init
+    sed -i -e 's/\Ruby/PHP/g' "$install_location"/libexec/rbenv-which
 }
 
 if [ -z "$PHPENV_ROOT" ]; then
@@ -69,18 +83,12 @@ fi
 if [ "$UPDATE" = "yes" ]; then
     echo "Updating phpenv in $PHPENV_ROOT"
     update_phpenv "$PHPENV_ROOT"
+    replace_rbenv "$PHPENV_ROOT"
 else
     echo "Installing phpenv in $PHPENV_ROOT"
     if [ "$CHECKOUT" = "yes" ]; then
         clone_rbenv "$PHPENV_ROOT"
-        sed -i -e 's/rbenv/phpenv/g' "$PHPENV_ROOT"/completions/rbenv.{bash,zsh}
-        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
-        sed -i -s 's/\.rbenv-version/.phpenv-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
-        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-local
-        sed -i -s 's/\.ruby-version/.php-version/g' "$PHPENV_ROOT"/libexec/rbenv-version-file
-        sed -i -e 's/\(^\|[^/]\)rbenv/\1phpenv/g' "$PHPENV_ROOT"/libexec/rbenv-init
-        sed -i -e 's/\phpenv-commands/rbenv-commands/g' "$PHPENV_ROOT"/libexec/rbenv-init
-        sed -i -e 's/\Ruby/PHP/g' "$PHPENV_ROOT"/libexec/rbenv-which
+        replace_rbenv "$PHPENV_ROOT"
     fi
 fi
 
