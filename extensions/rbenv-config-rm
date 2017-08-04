@@ -16,6 +16,6 @@ if [ -f "$PHPENV_CONFIG_PATH/$PHPENV_CONFIG_FILE" ]; then
   rm "$PHPENV_CONFIG_PATH/$PHPENV_CONFIG_FILE"
   echo "File $PHPENV_CONFIG_FILE removed from $PHPENV_CONFIG_PATH."
 else
-  echo "File $PHPENV_CONFIG_FILE does no exist."
+  echo "File $PHPENV_CONFIG_FILE does not exist."
   exit 1
 fi
